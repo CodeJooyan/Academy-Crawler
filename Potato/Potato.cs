@@ -135,8 +135,14 @@ namespace PotatoService
                     writer.WriteLine(value: $"شروع دوره: {item.StartDate} {item.StartDate}");
                     writer.WriteLine("به صورت حضوری و آنلاین");
                     writer.WriteLine("شعبه اصلی");
+                    writer.WriteLine("");
+                    writer.WriteLine("🍉🍉🍉🍉🍉🍉🍉🍉🍉🍉🍉🍉🍉🍉");
+                    writer.WriteLine("");
                     writer.WriteLine("برای مشاهده جزییات بیشتر روی لینک زیر کلیک کنید");
+                    writer.WriteLine("");
                     writer.WriteLine(item.ShortLink?.Trim().ToLower());
+                    writer.WriteLine("");
+                    writer.WriteLine("");
                     writer.WriteLine("☎️ 021-91303737 -- 021-88454816");
                     writer.WriteLine("");
                     writer.WriteLine("🆔 @AcademyBarnamenevisan");
