@@ -1,2 +1,2 @@
 # Academy Crawler
-a crawler for accademy courses
+a crawler for academy courses
