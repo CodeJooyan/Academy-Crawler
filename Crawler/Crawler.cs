@@ -123,7 +123,18 @@ namespace CrawlerService
             foreach (var item in model)
             {
                 string path = @$"Desktop\TelegramAds\ads{i}.txt";
-                string finalPath = $@"C:\Users\admin\Desktop\TelegramAds\ads{i}.txt";
+                string username = Environment.UserName;
+                string directoryPath = $@"C:\Users\{username}\Desktop\TelegramAds\";
+                string finalPath = $@"C:\Users\{username}\Desktop\TelegramAds\ads{i}.txt";
+
+                if (!Directory.Exists(Path.GetDirectoryName(directoryPath)))
+                {
+                    Directory.CreateDirectory(directoryPath);
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine(@$"directory created in {directoryPath}");
+                    Console.ResetColor();
+                }
+
                 using (StreamWriter writer = new StreamWriter(finalPath))
                 {
                     writer.WriteLine("✨آکادمی برنامه نویسان برگزار میکند ✨");
@@ -144,6 +155,10 @@ namespace CrawlerService
                     writer.WriteLine("☎️ 021-91303737 -- 021-88454816");
                     writer.WriteLine("");
                     writer.WriteLine("🆔 @AcademyBarnamenevisan");
+
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine(@$"file created in {finalPath}");
+                    Console.ResetColor();
                 }
                 i++;
             }
