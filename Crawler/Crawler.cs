@@ -2,9 +2,9 @@ using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using System.Text;
 
-namespace PotatoService
+namespace CrawlerService
 {
-    public class Potato
+    public class Crawler
     {
         public List<string> GetLinks()
         {

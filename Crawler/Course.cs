@@ -1,4 +1,4 @@
-namespace PotatoService{
+namespace CrawlerService{
     public class Course{
         #region Properties
 

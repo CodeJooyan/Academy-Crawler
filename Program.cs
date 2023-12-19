@@ -1,13 +1,13 @@
-﻿using PotatoService;
+﻿using CrawlerService;
 
 class Program
 {
     static void Main()
     {
-        Potato potato = new Potato();
-        var links = potato.GetLinks();
+        Crawler crawler = new Crawler();
+        var links = crawler.GetLinks();
         List<Course> courses = new List<Course>();
-        courses = potato.GetCourses(links);
-        var courseMessages = potato.GetCourses(courses);
+        courses = crawler.GetCourses(links);
+        var courseMessages = crawler.GetCourses(courses);
     }
 }
