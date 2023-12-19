@@ -110,8 +110,6 @@ namespace PotatoService
                         course.HowLongIsCourse = courseTime.InnerText;
                     }
 
-                    course.FinalMessage = CreateFinalMessage(course);
-
                     courses.Add(course);
                 }
             }
@@ -151,26 +149,6 @@ namespace PotatoService
             }
 
             return messages;
-        }
-        public string CreateFinalMessage(Course course)
-        {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine("✨آکادمی برنامه نویسان برگزار میکند ✨");
-            stringBuilder.AppendLine(course.Title);
-            stringBuilder.AppendLine($"مدرس: {course.MasterName}");
-            stringBuilder.AppendLine($"طول دوره: {course.Sections} ({course.HowLongIsCourse})");
-            stringBuilder.AppendLine(value: $"شروع دوره: {course.StartDate} {course.StartDate}");
-            stringBuilder.AppendLine("به صورت حضوری و آنلاین");
-            stringBuilder.AppendLine("شعبه اصلی");
-            stringBuilder.AppendLine("برای مشاهده جزییات بیشتر روی لینک زیر کلیک کنید");
-            stringBuilder.AppendLine(course.ShortLink);
-            stringBuilder.AppendLine("☎️ 021-91303737 -- 021-88454816");
-            stringBuilder.AppendLine("");
-            stringBuilder.AppendLine("🆔 @AcademyBarnamenevisan");
-
-            string result = stringBuilder.ToString();
-
-            return result;
         }
     }
 }
