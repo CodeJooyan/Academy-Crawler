@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\admin\\Documents\\repos\\Academy Khzande\\Console\\Console.csproj": {}
+    "C:\\Users\\admin\\Documents\\repos\\Crawler\\Accademy-Crawler\\Console.csproj": {}
   },
   "projects": {
-    "C:\\Users\\admin\\Documents\\repos\\Academy Khzande\\Console\\Console.csproj": {
+    "C:\\Users\\admin\\Documents\\repos\\Crawler\\Accademy-Crawler\\Console.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\admin\\Documents\\repos\\Academy Khzande\\Console\\Console.csproj",
+        "projectUniqueName": "C:\\Users\\admin\\Documents\\repos\\Crawler\\Accademy-Crawler\\Console.csproj",
         "projectName": "Console",
-        "projectPath": "C:\\Users\\admin\\Documents\\repos\\Academy Khzande\\Console\\Console.csproj",
+        "projectPath": "C:\\Users\\admin\\Documents\\repos\\Crawler\\Accademy-Crawler\\Console.csproj",
         "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\admin\\Documents\\repos\\Academy Khzande\\Console\\obj\\",
+        "outputPath": "C:\\Users\\admin\\Documents\\repos\\Crawler\\Accademy-Crawler\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",

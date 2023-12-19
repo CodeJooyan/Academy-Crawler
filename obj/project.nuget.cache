@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fCN3AnhdR+9G1kMfcCA7uRgBKOb47ws7xlQKvcehiIMQ+XsVVt/UgPz1Su8AQIwSKPqb6nfNzGNrueiHUcDLNA==",
+  "dgSpecHash": "uxQOrPwTFjZhGi9GZxPLSH2BMdDiD06D6THMvnmAU9M8TMdUIlMSwI3tjCZjxU+bX8FiSW10xJp6ncguDH8t6w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\admin\\Documents\\repos\\Academy Khzande\\Console\\Console.csproj",
+  "projectFilePath": "C:\\Users\\admin\\Documents\\repos\\Crawler\\Accademy-Crawler\\Console.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\admin\\.nuget\\packages\\htmlagilitypack\\1.11.54\\htmlagilitypack.1.11.54.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\persiandatetime\\1.1.5082.36395\\persiandatetime.1.1.5082.36395.nupkg.sha512",
