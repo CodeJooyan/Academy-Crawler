@@ -125,7 +125,7 @@ namespace CrawlerService
                 string path = @$"Desktop\TelegramAds\ads{i}.txt";
                 string username = Environment.UserName;
                 string directoryPath = $@"C:\Users\{username}\Desktop\TelegramAds\";
-                string finalPath = $@"C:\Users\{username}\Desktop\TelegramAds\ads{i}.txt";
+                string finalPath = $@"C:\Users\{username}\Desktop\TelegramAds\ads{item.Title}.txt";
 
                 if (!Directory.Exists(Path.GetDirectoryName(directoryPath)))
                 {
@@ -145,7 +145,6 @@ namespace CrawlerService
                     writer.WriteLine("به صورت حضوری و آنلاین");
                     writer.WriteLine("شعبه اصلی");
                     writer.WriteLine("");
-                    writer.WriteLine("🍉🍉🍉🍉🍉🍉🍉🍉🍉🍉🍉🍉🍉🍉");
                     writer.WriteLine("");
                     writer.WriteLine("برای مشاهده جزییات بیشتر روی لینک زیر کلیک کنید");
                     writer.WriteLine("");
