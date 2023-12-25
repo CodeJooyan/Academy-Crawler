@@ -1,13 +1,29 @@
 ﻿using CrawlerService;
+using TelegramBotService;
 
 class Program
 {
-    static void Main()
+    static async Task Main(string[] args)
     {
-        Crawler crawler = new Crawler();
-        var links = crawler.GetLinks();
+        Console.Clear();
         List<Course> courses = new List<Course>();
-        courses = crawler.GetCourses(links);
-        var courseMessages = crawler.GetCourses(courses);
+        var crawler = new Crawler();
+
+        try
+        {
+            // courses.AddRange(crawler.GetAllCourses());
+            courses.AddRange(crawler.GetCourses(crawler.GetLinks()));
+        }
+        catch
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Something Went Wrong! cant get all of courses");
+        }
+        using (TelegramBot telegramBot = new TelegramBot(courses)){
+            await telegramBot.RunBot();
+            Console.ReadKey();
+
+            telegramBot.Dispose();
+        }
     }
 }

@@ -116,7 +116,7 @@ namespace CrawlerService
             courses = courses.OrderBy(x => x.StartDate).ToList();
             return courses;
         }
-        public List<string> GetCourses(List<Course> model)
+        public List<string> WriteCoursesToDirectory(List<Course> model)
         {
             List<string> messages = new List<string>();
             int i = 1;
@@ -125,7 +125,7 @@ namespace CrawlerService
                 string path = @$"Desktop\TelegramAds\ads{i}.txt";
                 string username = Environment.UserName;
                 string directoryPath = $@"C:\Users\{username}\Desktop\TelegramAds\";
-                string finalPath = $@"C:\Users\{username}\Desktop\TelegramAds\ads{item.Title}.txt";
+                string finalPath = $@"C:\Users\{username}\Desktop\TelegramAds\ads{i}.txt";
 
                 if (!Directory.Exists(Path.GetDirectoryName(directoryPath)))
                 {
@@ -141,7 +141,7 @@ namespace CrawlerService
                     writer.WriteLine(item.Title);
                     writer.WriteLine($"مدرس: {item.MasterName}");
                     writer.WriteLine($"طول دوره: {item.Sections} ({item.HowLongIsCourse})");
-                    writer.WriteLine(value: $"شروع دوره: {item.StartDate} {item.StartDate}");
+                    writer.WriteLine($"شروع دوره: {item.StartDate} {item.StartDate}");
                     writer.WriteLine("به صورت حضوری و آنلاین");
                     writer.WriteLine("شعبه اصلی");
                     writer.WriteLine("");
@@ -163,6 +163,17 @@ namespace CrawlerService
             }
 
             return messages;
+        }
+        /// <summary>
+        /// Writes all academy courses to desktop and gives list of all courses in the academy
+        /// </summary>
+        /// <returns>List of courses</returns>
+        public List<Course> GetAllCourses(){
+            var links = GetLinks();
+            var courses = GetCourses(links);
+            WriteCoursesToDirectory(courses);
+
+            return courses;
         }
     }
 }
