@@ -1,6 +1,7 @@
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using System.Text;
+using CrawlerService.Extentions;
 
 namespace CrawlerService
 {
@@ -10,6 +11,9 @@ namespace CrawlerService
         {
             using (var httpClient = new HttpClient())
             {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Geting Courses Link From Barnamenevisan.info");
+                Console.ResetColor();
                 var response = httpClient.GetAsync("https://barnamenevisan.info/").Result;
                 var content = response.Content.ReadAsStringAsync().Result;
                 var htmlDocument = new HtmlDocument();
@@ -29,14 +33,18 @@ namespace CrawlerService
                         links.Add("https://barnamenevisan.info" + href);
                     }
                 }
-
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Links Taked..!");
+                Console.ResetColor();
                 return links.ToList();
             }
         }
         public List<Course> GetCourses(List<string> links)
         {
             List<Course> courses = new List<Course>();
-
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("trying to get telegram courses from links");
+            Console.ResetColor();
             using (var httpClient = new HttpClient())
             {
                 foreach (var link in links)
@@ -109,11 +117,18 @@ namespace CrawlerService
                     {
                         course.HowLongIsCourse = courseTime.InnerText;
                     }
+                    //get day of week
+                    course.DayOfWeek = course.StartDate.ToShamsiByString().GetPersianDayOfWeek();
 
                     courses.Add(course);
                 }
             }
             courses = courses.OrderBy(x => x.StartDate).ToList();
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("List Generated !");
+            Console.ResetColor();
+
             return courses;
         }
         public List<string> WriteCoursesToDirectory(List<Course> model)
@@ -168,7 +183,8 @@ namespace CrawlerService
         /// Writes all academy courses to desktop and gives list of all courses in the academy
         /// </summary>
         /// <returns>List of courses</returns>
-        public List<Course> GetAllCourses(){
+        public List<Course> GetAllCourses()
+        {
             var links = GetLinks();
             var courses = GetCourses(links);
             WriteCoursesToDirectory(courses);
