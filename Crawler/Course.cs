@@ -1,6 +1,5 @@
 namespace CrawlerService{
     public class Course{
-        #region Properties
 
         public string? Title { get; set; }
         public string? MasterName {get ; set ;}
@@ -13,6 +12,5 @@ namespace CrawlerService{
         public string? Sections{get ; set;}
         public string? FinalMessage{get ; set ;}
 
-        #endregion
     }
 }

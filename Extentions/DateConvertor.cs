@@ -4,11 +4,6 @@ namespace CrawlerService.Extentions
 {
     public static class DateConvertor
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="date">Should be like </param>
-        /// <returns></returns>
         public static DateTime? ToShamsiByString(this string? date)
         {
             if (date is null) return null;

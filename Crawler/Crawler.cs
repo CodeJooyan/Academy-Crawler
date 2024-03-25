@@ -1,23 +1,30 @@
-using System.Text.RegularExpressions;
-using HtmlAgilityPack;
-using System.Text;
 using CrawlerService.Extentions;
+using HtmlAgilityPack;
+using System.Text.RegularExpressions;
+using TelegramBotService;
 
 namespace CrawlerService
 {
-    public class Crawler
+    public static class Crawler
     {
-        public List<string> GetLinks()
+        public static List<string> GetLinks()
         {
             using (var httpClient = new HttpClient())
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Geting Courses Link From Barnamenevisan.info");
                 Console.ResetColor();
+
+                #region Get Html Response From URL
+
                 var response = httpClient.GetAsync("https://barnamenevisan.info/").Result;
                 var content = response.Content.ReadAsStringAsync().Result;
                 var htmlDocument = new HtmlDocument();
                 htmlDocument.LoadHtml(content);
+
+                #endregion
+
+                #region Get Link Nodes
 
                 string regexPattern = @"/Course\d+/\S+";
                 Regex regex1 = new Regex(regexPattern);
@@ -25,37 +32,59 @@ namespace CrawlerService
                 var linkNodes = htmlDocument.DocumentNode.Descendants("a");
                 HashSet<string> links = new HashSet<string>();
 
+                #endregion
+
+                int linksCount = 0;
+
+                #region Convert Nodes To Normal Links
+
                 foreach (var linkNode in linkNodes)
                 {
                     var href = linkNode.GetAttributeValue("href", "");
                     if (href != null && regex1.IsMatch(href))
                     {
                         links.Add("https://barnamenevisan.info" + href);
+                        linksCount++;
+                        Console.WriteLine($"{linksCount} links found .....! {href}");
                     }
                 }
+
+                #endregion
+
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("Links Taked..!");
                 Console.ResetColor();
+
                 return links.ToList();
             }
         }
-        public List<Course> GetCourses(List<string> links)
+        public static List<Course> GetCourses(this List<string> links)
         {
-            List<Course> courses = new List<Course>();
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("trying to get telegram courses from links");
             Console.ResetColor();
+
+            List<Course> courses = new List<Course>();
+
             using (var httpClient = new HttpClient())
             {
                 foreach (var link in links)
                 {
+                    #region Load Html From Url
+
                     var response = httpClient.GetAsync(link).Result;
                     var content = response.Content.ReadAsStringAsync().Result;
                     var htmlDocument = new HtmlDocument();
                     htmlDocument.LoadHtml(content);
+
+                    #endregion
+
                     Course course = new Course();
 
-                    //course name
+                    #region Get Course Details
+
+                    #region Course Name
+
                     HtmlNode courseNameNode = htmlDocument.DocumentNode.SelectSingleNode("//header[contains(@class, 'course-page-header')]");
                     if (courseNameNode != null)
                     {
@@ -67,7 +96,10 @@ namespace CrawlerService
 
                     }
 
-                    //get short link
+                    #endregion
+
+                    #region ShortLink
+
                     HtmlNode courseShortLink = htmlDocument.DocumentNode.SelectSingleNode("//div[contains(@class, 'LinK_Text_Box_shortlink')]");
                     if (courseShortLink != null)
                     {
@@ -78,7 +110,10 @@ namespace CrawlerService
                         }
                     }
 
-                    // Get master name
+                    #endregion
+
+                    #region Course Master Name
+
                     HtmlNode mainInfoNode = htmlDocument.DocumentNode.SelectSingleNode("//div[contains(@class, 'course-details-right-side')]");
                     if (mainInfoNode != null)
                     {
@@ -102,6 +137,10 @@ namespace CrawlerService
                         }
                     }
 
+                    #endregion
+
+                    #region Course Sections Count and houres
+
                     //get course sections
                     string searchText = "جلسه";
                     HtmlNode courseSection = htmlDocument.DocumentNode.SelectSingleNode($"//*[text()[contains(.,'{searchText}')]]");
@@ -117,12 +156,22 @@ namespace CrawlerService
                     {
                         course.HowLongIsCourse = courseTime.InnerText;
                     }
-                    //get day of week
-                    course.DayOfWeek = course.StartDate.ToShamsiByString().GetPersianDayOfWeek();
+
+                    #endregion
+
+                    #region Get day of week
+
+                    //course.DayOfWeek = course.StartDate.ToShamsiByString().GetPersianDayOfWeek();
+
+                    #endregion
+
+                    #endregion
 
                     courses.Add(course);
+                    Console.WriteLine("***************************************************************");
                 }
             }
+            Console.Clear();
             courses = courses.OrderBy(x => x.StartDate).ToList();
 
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -131,7 +180,15 @@ namespace CrawlerService
 
             return courses;
         }
-        public List<string> WriteCoursesToDirectory(List<Course> model)
+        public static async Task SendToTelegramAsync(this List<Course> courses)
+        {
+            TelegramBot telegramBot = new TelegramBot(courses);
+
+            await telegramBot.RunBot();
+        }
+
+        #region Archived
+        public static List<string> WriteCoursesToDirectory(this List<Course> model)
         {
             List<string> messages = new List<string>();
             int i = 1;
@@ -179,17 +236,7 @@ namespace CrawlerService
 
             return messages;
         }
-        /// <summary>
-        /// Writes all academy courses to desktop and gives list of all courses in the academy
-        /// </summary>
-        /// <returns>List of courses</returns>
-        public List<Course> GetAllCourses()
-        {
-            var links = GetLinks();
-            var courses = GetCourses(links);
-            WriteCoursesToDirectory(courses);
+        #endregion
 
-            return courses;
-        }
     }
 }

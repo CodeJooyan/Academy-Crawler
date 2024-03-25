@@ -6,7 +6,7 @@ using Telegram.Bot.Types.ReplyMarkups;
 
 namespace TelegramBotService
 {
-    public class TelegramBot : IDisposable
+    public class TelegramBot
     {
         private readonly List<Course> _courses;
         public TelegramBot(List<Course> courses)
@@ -98,11 +98,6 @@ namespace TelegramBotService
         });
 
             await _telegramBot.SendTextMessageAsync(chatId, "لطفا یک گزینه را انتخاب کنید:", replyMarkup: keyboard);
-        }
-
-        public void Dispose()
-        {
-            this.Dispose();
         }
     }
 }
